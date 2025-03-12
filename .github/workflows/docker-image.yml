@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Paso para hacer checkout del repositorio
     - uses: actions/checkout@v4
 
     # Paso para iniciar sesión en Docker Hub
@@ -23,11 +24,11 @@ jobs:
 
     # Paso para realizar pull de la imagen desde Docker Hub
     - name: Pull the Docker image from Docker Hub
-      run: docker pull jua665/mojito :latest  # Cambia 'my-image-name' por el nombre de tu imagen en Docker Hub
+      run: docker pull jua665/mojito:latest  # Cambia 'mojito' por el nombre de tu imagen en Docker Hub
 
     # Paso opcional: ejecutar la imagen si necesitas correrla en un contenedor
     - name: Run the Docker container
-      run: docker run -d --name my-container jua665/mojito :latest  # Esto ejecuta el contenedor con la imagen
+      run: docker run -d --name mojito-container jua665/mojito:latest  # Esto ejecuta el contenedor con la imagen
 
     # Paso opcional: otros comandos para desplegar o ejecutar tu aplicación
     - name: Deploy your application
