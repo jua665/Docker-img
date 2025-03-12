@@ -1,0 +1,36 @@
+name: Docker Image Pull and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    # Paso para iniciar sesión en Docker Hub
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}  # Tu Docker Hub username desde GitHub Secrets
+        password: ${{ secrets.DOCKER_PASSWORD }}  # Tu Docker Hub password desde GitHub Secrets
+
+    # Paso para realizar pull de la imagen desde Docker Hub
+    - name: Pull the Docker image from Docker Hub
+      run: docker pull jua665/mojito :latest  # Cambia 'my-image-name' por el nombre de tu imagen en Docker Hub
+
+    # Paso opcional: ejecutar la imagen si necesitas correrla en un contenedor
+    - name: Run the Docker container
+      run: docker run -d --name my-container jua665/mojito :latest  # Esto ejecuta el contenedor con la imagen
+
+    # Paso opcional: otros comandos para desplegar o ejecutar tu aplicación
+    - name: Deploy your application
+      run: |
+        # Aquí puedes agregar cualquier otro comando que necesites para tu despliegue
+        echo "Desplegando la aplicación..."
