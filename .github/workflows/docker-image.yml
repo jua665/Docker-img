@@ -8,8 +8,7 @@ on:
 
 jobs:
   deploy:
-
-    runs-on: ubuntu-latest
+    runs-on: self-hosted  # Cambiado a self-hosted para usar tu máquina local
 
     steps:
     # Paso para hacer checkout del repositorio
@@ -22,18 +21,22 @@ jobs:
         username: jua665  # Coloca aquí tu nombre de usuario de Docker Hub
         password: Juan12345  # Coloca aquí tu token de acceso personal de Docker Hub
 
-
+    # Paso para hacer pull de la imagen de Docker desde Docker Hub
     - name: Pull the Docker image from Docker Hub
       run: docker pull jua665/mojito:latest
 
+    # Paso para ejecutar el contenedor Docker
     - name: Run the Docker container
       run: docker run -d -p 8080:8080 --name mojito-container jua665/mojito:latest
 
+    # Paso para verificar los contenedores en ejecución
     - name: Verify running containers
       run: docker ps -a
 
+    # Paso para ver los logs del contenedor
     - name: Show container logs
       run: docker logs mojito-container
 
+    # Paso final de despliegue
     - name: Deploy your application
       run: echo "Desplegando la aplicación..."
